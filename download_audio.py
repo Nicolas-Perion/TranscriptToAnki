@@ -101,25 +101,19 @@ def download_split_by_chapters(
             start_time = chap["start_time"]
             end_time = chap["end_time"]
             duration = end_time - start_time
-            fast_seek = max(0, start_time - 1)
-            print(f"FFmpeg params: title: {title}, start_time: {start_time}, end_time: {end_time}, duration: {duration}, fast_seek: {fast_seek}")
             cmd = [
                 "ffmpeg",
                 "-y",
-                "-ss",
-                f"{fast_seek}",
                 "-i",
                 final_filepath,
                 "-ss",
-                f"{start_time}",
+                f"{start_time:.3f}",
                 "-t",
-                f"{duration}",
+                f"{duration:.3f}",
                 "-c",
                 "copy",
                 f"temp_audio/{title}.m4a",
             ]
-
-            result = subprocess.run(cmd, capture_output=True, check=True)
 
         if os.path.exists(final_filepath):
             os.remove(final_filepath)
