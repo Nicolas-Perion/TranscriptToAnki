@@ -1,3 +1,4 @@
+# Pour modifier cela, voir https://github.com/SYSTRAN/faster-whisper
 import whisper
 import os
 from config import TEMP_AUDIO_DIRECTORY_PATH, TRANSCRIPTIONS_DIRECTORY_PATH

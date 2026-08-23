@@ -1,17 +1,16 @@
 #VSCode
 .vscode/
 
-#TO DO
-Etapes.txt
-
 #My YT cookies
 cookies.txt
 
-#Test on my side
+#Used for building the app
+Personal/
 temp_audio/
+transcriptions/
 
 #Pycache
 __pycache__/
 
-#Claude Code
-.claude/
+#.venv
+.venv
