@@ -75,9 +75,7 @@ def download_split_by_chapters(
 
     with YoutubeDL(ydl_opts) as ydl:
         ydl.add_post_processor(CaptureFinalInfoPP(), when="post_process")
-        # info_dict = ydl.extract_info(url, download=True)
         ydl.extract_info(url, download=True)
-        # info_dict = ydl.sanitize_info(info_dict, remove_private_keys=True)
 
         if (
             split == False
@@ -112,8 +110,10 @@ def download_split_by_chapters(
                 f"{duration:.3f}",
                 "-c",
                 "copy",
-                f"temp_audio/{title}.m4a",
+                f"{TEMP_AUDIO_DIRECTORY_PATH}/{title}.m4a",
             ]
-
+            subprocess.run(cmd)
+        
         if os.path.exists(final_filepath):
             os.remove(final_filepath)
+        return

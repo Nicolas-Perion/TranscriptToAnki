@@ -8,6 +8,8 @@ cookies.txt
 Personal/
 temp_audio/
 transcriptions/
+requirements-dev.in
+requirements-dev.txt
 
 #Pycache
 __pycache__/

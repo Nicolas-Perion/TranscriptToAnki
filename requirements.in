@@ -1,3 +1,4 @@
 ffmpeg
 yt-dlp[default,curl-cffi]
 faster-whisper
+huggingface_hub

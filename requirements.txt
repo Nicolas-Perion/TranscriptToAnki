@@ -47,6 +47,7 @@ httpx==0.28.1
     # via huggingface-hub
 huggingface-hub==1.28.0
     # via
+    #   -r requirements.in
     #   faster-whisper
     #   tokenizers
 idna==3.19

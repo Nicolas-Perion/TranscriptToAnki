@@ -3,3 +3,4 @@ TEMP_AUDIO_DIRECTORY_PATH = '/home/nicolas/Projets DS/TranscriptToAnki/temp_audi
 TRANSCRIPTIONS_DIRECTORY_PATH = '/home/nicolas/Projets DS/TranscriptToAnki/transcriptions'
 COOKIES_PATH = '/home/nicolas/Projets DS/TranscriptToAnki/cookies.txt'
 DENO_PATH = '/usr/bin/deno'
+MODEL_SIZE = 'tiny.en' #See https://huggingface.co/collections/Systran/faster-whisper for available models
