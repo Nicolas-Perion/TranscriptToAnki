@@ -113,7 +113,7 @@ def download_split_by_chapters(
                 f"{TEMP_AUDIO_DIRECTORY_PATH}/{title}.m4a",
             ]
             subprocess.run(cmd)
-        
+
         if os.path.exists(final_filepath):
             os.remove(final_filepath)
         return

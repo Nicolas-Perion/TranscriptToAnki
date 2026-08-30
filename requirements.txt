@@ -78,7 +78,9 @@ pyyaml==6.0.3
     #   ctranslate2
     #   huggingface-hub
 requests==2.34.2
-    # via yt-dlp
+    # via
+    #   -r requirements.in
+    #   yt-dlp
 tokenizers==0.23.1
     # via faster-whisper
 tqdm==4.70.0
