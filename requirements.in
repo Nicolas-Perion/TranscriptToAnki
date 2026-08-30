@@ -3,3 +3,5 @@ yt-dlp[default,curl-cffi]
 faster-whisper
 huggingface_hub
 requests
+ollama
+pydantic

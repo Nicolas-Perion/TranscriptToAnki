@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements.in
 #
+annotated-types==0.8.0
+    # via pydantic
 anyio==4.14.2
     # via httpx
 av==18.1.0
@@ -44,7 +46,9 @@ hf-xet==1.6.0
 httpcore==1.0.9
     # via httpx
 httpx==0.28.1
-    # via huggingface-hub
+    # via
+    #   huggingface-hub
+    #   ollama
 huggingface-hub==1.28.0
     # via
     #   -r requirements.in
@@ -61,6 +65,8 @@ numpy==2.5.2
     # via
     #   ctranslate2
     #   onnxruntime
+ollama==0.6.2
+    # via -r requirements.in
 onnxruntime==1.29.0
     # via faster-whisper
 packaging==26.3
@@ -73,6 +79,12 @@ pycparser==3.0
     # via cffi
 pycryptodomex==3.23.0
     # via yt-dlp
+pydantic==2.13.5
+    # via
+    #   -r requirements.in
+    #   ollama
+pydantic-core==2.46.5
+    # via pydantic
 pyyaml==6.0.3
     # via
     #   ctranslate2
@@ -88,7 +100,13 @@ tqdm==4.70.0
     #   faster-whisper
     #   huggingface-hub
 typing-extensions==4.16.0
-    # via huggingface-hub
+    # via
+    #   huggingface-hub
+    #   pydantic
+    #   pydantic-core
+    #   typing-inspection
+typing-inspection==0.4.4
+    # via pydantic
 urllib3==2.7.0
     # via
     #   requests
