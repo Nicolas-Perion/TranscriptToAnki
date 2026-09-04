@@ -1,10 +1,10 @@
 import os
-from config import TEMP_AUDIO_DIRECTORY_PATH, COOKIES_PATH, DENO_PATH
+from config import COOKIES_PATH, DENO_PATH
 from yt_dlp import YoutubeDL
 from yt_dlp.postprocessor import PostProcessor
 import subprocess
 
-temp_audio_directory = os.makedirs(name=TEMP_AUDIO_DIRECTORY_PATH, exist_ok=True)
+temp_audio_directory = os.makedirs(name="temp_audio", exist_ok=True)
 
 ydl_opts = {
     "format": "m4a/ba",

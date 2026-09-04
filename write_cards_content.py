@@ -1,7 +1,13 @@
 from ollama import chat
 from pydantic import BaseModel
 
-from config import MODEL, SYSTEM_PROMPT
+from config import MODEL
+
+SYSTEM_PROMPT = """
+You are an Anki card creator.
+You will receive information about a topic and must generate content for the fields of
+of the card (Front, Back, tags) and be compliant with the provided JSON schema.
+"""
 
 
 class CardFields(BaseModel):
