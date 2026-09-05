@@ -1,5 +1,6 @@
-import requests as re
 import json
+
+import requests as re
 
 
 def post_request(action: str, params: dict = {}) -> dict:

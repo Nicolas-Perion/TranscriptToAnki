@@ -29,7 +29,8 @@ def write_cards_content(transcription: str):
             {"role": "system", "content": SYSTEM_PROMPT},
             {
                 "role": "user",
-                "content": rf"Here is the information: <\information> {transcription} <\information>",
+                "content": rf"Here is the information: <\information> {transcription}\
+                <\information>",
             },
         ],
     )

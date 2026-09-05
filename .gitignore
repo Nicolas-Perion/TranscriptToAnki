@@ -1,18 +1,16 @@
-#VSCode
-.vscode/
 
-#My YT cookies
+# My YT cookies
 cookies.txt
 
-#Used for building the app
+# Used for building the app
 Personal/
 temp_audio/
 transcriptions/
-requirements-dev.in
-requirements-dev.txt
+requirements-dev.*
+pyproject.toml
+.sync.sh
 
-#Pycache
+# Other
+.vscode/
 __pycache__/
-
-#.venv
-.venv
+.venv/

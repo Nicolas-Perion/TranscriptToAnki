@@ -1,8 +1,10 @@
 import os
-from config import COOKIES_PATH, DENO_PATH
+import subprocess
+
 from yt_dlp import YoutubeDL
 from yt_dlp.postprocessor import PostProcessor
-import subprocess
+
+from config import COOKIES_PATH, DENO_PATH
 
 temp_audio_directory = os.makedirs(name="temp_audio", exist_ok=True)
 
@@ -42,7 +44,7 @@ ydl_opts = {
     "js_runtimes": {"deno": {"path": DENO_PATH}},
     # 'quiet': False,
     # 'verbose': True,
-    "paths": {"home": TEMP_AUDIO_DIRECTORY_PATH},
+    "paths": {"home": temp_audio_directory},
     "outtmpl": "%(title)s [%(id)s].%(ext)s",  # Default structure of the name : 'title.ext'
 }
 
@@ -68,7 +70,7 @@ def download_split_by_chapters(
         split (bool, optional): If the audio is split along chapters. Defaults to True.
     """
 
-    if split == False and len(chapters_to_exclude) > 0:
+    if not split and len(chapters_to_exclude) > 0:
         raise ValueError(
             "If no split will be performed, no chapters to exclude should be provided."
         )
@@ -78,7 +80,7 @@ def download_split_by_chapters(
         ydl.extract_info(url, download=True)
 
         if (
-            split == False
+            not split
         ):  # If we don't want to split the audio, we just stop after downloading it.
             return
 
@@ -110,7 +112,7 @@ def download_split_by_chapters(
                 f"{duration:.3f}",
                 "-c",
                 "copy",
-                f"{TEMP_AUDIO_DIRECTORY_PATH}/{title}.m4a",
+                f"{temp_audio_directory}/{title}.m4a",
             ]
             subprocess.run(cmd)
 
