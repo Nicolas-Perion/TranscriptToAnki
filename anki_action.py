@@ -24,15 +24,20 @@ class AnkiClient:
         version = post_request("version")
         print(f"Version of AnkiWeb: {version['result']}")
 
-        deck_names = post_request("deckNames")
-        print(f"Existing decks: {deck_names['result']}")
-        print("=" * 50)
+    def create_deck(self, deck: str) -> None:
+        """Create a deck in Anki.
+
+        Args:
+            deck (str): Name of the deck to create.
+        """
+        post_request("createDeck", {"deck": deck})
+        return
 
     def create_cards(self, deck: str, content: dict[str], model: str = "Basic") -> None:
         """Create one (or several) cards based on the provided model.
 
         Args:
-            deck (str): Deck.
+            deck (str): Deck to create the card(s) into.
             content (dict[str]): Content in the fields corresponding to the model.
             model (str, optional): Model to create the card(s) from. Defaults to "Basic".
         """

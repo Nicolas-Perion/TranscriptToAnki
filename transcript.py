@@ -10,6 +10,7 @@ os.makedirs(name="transcriptions", exist_ok=True)
 
 
 def write_transcriptions():
+    """Write transcriptions of the audio extract in the ./temp_audio/ folder."""
     chapters_paths = [
         os.path.join("./temp_audio/", path) for path in os.listdir("./transcriptions/")
     ]
