@@ -30,7 +30,11 @@ class AnkiClient:
         Args:
             deck (str): Name of the deck to create.
         """
-        post_request("createDeck", {"deck": deck})
+        new_deck = post_request("createDeck", {"deck": deck})
+        if new_deck["Error"] is None:
+            print("Deck successfully created.")
+        else:
+            print(f"Error: {new_deck['Error']}")
         return
 
     def create_cards(self, deck: str, content: dict[str], model: str = "Basic") -> None:

@@ -3,9 +3,11 @@ from pathlib import Path
 
 from faster_whisper import WhisperModel
 
-from config import MODEL_SIZE
+from config import MODEL_TRANSCRIPTION_SIZE
 
-model = WhisperModel(model_size_or_path=MODEL_SIZE, device="cpu", local_files_only=True)
+model = WhisperModel(
+    model_size_or_path=MODEL_TRANSCRIPTION_SIZE, device="cpu", local_files_only=True
+)
 os.makedirs(name="transcriptions", exist_ok=True)
 
 

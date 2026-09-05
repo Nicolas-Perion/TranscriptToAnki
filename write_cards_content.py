@@ -5,7 +5,7 @@ from config import MODEL
 
 SYSTEM_PROMPT = """
 You are an Anki card creator.
-You will receive information about a topic and must generate content for the fields of
+You will receive information about a topic and must generate content for the fields
 of the card (Front, Back) and be compliant with the provided JSON schema.
 The 'Front' field must contain one short question (at most 10 words) and the 'Back'
 field must contain the answer to that question. 
