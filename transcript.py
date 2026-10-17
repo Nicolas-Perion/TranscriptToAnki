@@ -13,15 +13,14 @@ os.makedirs(name="transcriptions", exist_ok=True)
 
 def write_transcriptions():
     """Write transcriptions of the audio extract in the ./temp_audio/ folder."""
-    chapters_paths = [
-        os.path.join("./temp_audio/", path) for path in os.listdir("./transcriptions/")
-    ]
+    chapters_paths = [p for p in Path("./temp_audio").iterdir() if p.is_file()]
+
     for chapter_path in chapters_paths:
-        segments = model.transcribe(chapter_path)
+        segments = model.transcribe(str(chapter_path))
         segments = segments[0]
 
         transcription_path = (
-            str(os.path.join("./transcriptions/", Path(chapter_path).stem)) + ".txt"
+            str(os.path.join("./transcriptions/", chapter_path.stem)) + ".txt"
         )
         with open(transcription_path, "a", encoding="utf-8") as file:
             for segment in segments:

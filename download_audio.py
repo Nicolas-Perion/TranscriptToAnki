@@ -6,7 +6,8 @@ from yt_dlp.postprocessor import PostProcessor
 
 from config import COOKIES_PATH, DENO_PATH
 
-temp_audio_directory = os.makedirs(name="temp_audio", exist_ok=True)
+temp_audio_directory = os.path.join(os.getcwd(), "temp_audio")
+os.makedirs(temp_audio_directory, exist_ok=True)
 
 ydl_opts = {
     "format": "m4a/ba",

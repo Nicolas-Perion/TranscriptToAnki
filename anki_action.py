@@ -21,23 +21,36 @@ def post_request(action: str, params: dict = {}) -> dict:
 class AnkiClient:
     def __init__(self) -> None:
         print("=" * 50)
-        version = post_request("version")
-        print(f"Version of AnkiWeb: {version['result']}")
+        try:
+            version = post_request("version")
+            print(f"✓ Connexion à AnkiConnect réussie (Version: {version['result']})")
+        except Exception as e:
+            print(f"✗ Échec de connexion à AnkiConnect: {e}")
+            print("Vérifiez que Anki est lancé avec l'add-on AnkiConnect")
+            raise
 
     def create_deck(self, deck: str) -> None:
-        """Create a deck in Anki.
+        """Create a deck in Anki, if it doesn't already exists.
 
         Args:
             deck (str): Name of the deck to create.
         """
-        new_deck = post_request("createDeck", {"deck": deck})
-        if new_deck["Error"] is None:
-            print("Deck successfully created.")
+        if deck.lower() in [
+            existing_decks.lower() for existing_decks in post_request("deckNames")
+        ]:
+            print("A deck with the same name already exists")
+            return
         else:
-            print(f"Error: {new_deck['Error']}")
-        return
+            new_deck = post_request("createDeck", {"deck": deck})
+            if new_deck["error"] is None:
+                print("Deck successfully created.")
+            else:
+                print(f"Error: {new_deck['error']}")
+            return
 
-    def create_cards(self, deck: str, content: dict[str], model: str = "Basic") -> None:
+    def create_cards(
+        self, deck: str, content: dict[str, str], model: str = "Basic"
+    ) -> None:
         """Create one (or several) cards based on the provided model.
 
         Args:
@@ -56,7 +69,7 @@ class AnkiClient:
             },
         )
 
-        if new_card["Error"] is None:
+        if new_card["error"] is None:
             print("Card successfully created.")
         else:
-            print(f"Error: {new_card['Error']}")
+            print(f"Error: {new_card['error']}")

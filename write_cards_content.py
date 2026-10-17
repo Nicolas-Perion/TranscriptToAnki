@@ -1,3 +1,5 @@
+import json
+
 from ollama import chat
 from pydantic import BaseModel
 
@@ -30,7 +32,7 @@ def write_cards_content(transcription_path: str) -> str:
     Returns:
         str: The generated content, formated by the schema.
     """
-    with open(transcription_path) as file:
+    with open(transcription_path, encoding="utf-8") as file:
         response = chat(
             model=MODEL,
             format=schema,
@@ -38,9 +40,9 @@ def write_cards_content(transcription_path: str) -> str:
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {
                     "role": "user",
-                    "content": rf"Here is the information about the topic: <\information> {file.readlines()} <\information>",
+                    "content": f"Here is the information about the topic: <information> {''.join(file.readlines())} </information>",
                 },
             ],
         )
 
-    return response.message.content
+    return json.loads(response.message.content)
