@@ -49,7 +49,7 @@ class AnkiClient:
             return
 
     def create_cards(
-        self, deck: str, content: dict[str, str], model: str = "Basic"
+        self, deck: str, content: dict[str, dict[str, str]], model: str = "Basic"
     ) -> None:
         """Create one (or several) cards based on the provided model.
 
@@ -58,18 +58,20 @@ class AnkiClient:
             content (dict[str]): Content in the fields corresponding to the model.
             model (str, optional): Model to create the card(s) from. Defaults to "Basic".
         """
-        new_card = post_request(
-            "addNote",
-            {
-                "note": {
-                    "deckName": deck,
-                    "modelName": model,
-                    "fields": content,
-                },
-            },
-        )
 
-        if new_card["error"] is None:
-            print("Card successfully created.")
-        else:
-            print(f"Error: {new_card['error']}")
+        for i in range(len(content.keys())):
+            new_card = post_request(
+                "addNote",
+                {
+                    "note": {
+                        "deckName": deck,
+                        "modelName": model,
+                        "fields": content[f"Card {i}"],
+                    },
+                },
+            )
+
+            if new_card["error"] is None:
+                print("Card successfully created.")
+            else:
+                print(f"Error: {new_card['error']}")

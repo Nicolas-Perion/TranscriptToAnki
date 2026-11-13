@@ -1,29 +1,35 @@
+from to_json_schema.to_json_schema import SchemaBuilder
 import json
 
 from ollama import chat
-from pydantic import BaseModel
 
-from config import MODEL
-
-SYSTEM_PROMPT = """
-You are an Anki card creator.
-You will receive information about a topic and must generate content for the fields
-of the card (Front, Back) and be compliant with the provided JSON schema.
-The 'Front' field must contain one short question (at most 10 words) and the 'Back'
-field must contain the answer to that question. 
-"""
+from config import MODEL, SYSTEM_PROMPT, SESSION_PROMPT
 
 
-class CardFields(BaseModel):
-    Front: str
-    Back: str
-    # tags: list[str]
+schema_builder = SchemaBuilder()
+
+TOTAL_PROMPT = "\n".join([SYSTEM_PROMPT, SESSION_PROMPT])
 
 
-schema = CardFields.model_json_schema()
+class BasicSchema:
+    def schema(self) -> dict[str, str]:
+        return {"Front": "string", "Back": "string"}
 
 
-def write_cards_content(transcription_path: str) -> str:
+class CardsBundle:
+    def __init__(self, cards_amount: int) -> None:
+        self.cards_amount = cards_amount
+        self.basic_schema = BasicSchema()
+
+    def schema(self) -> dict:
+        return {
+            f"Card {i}": self.basic_schema.schema() for i in range(self.cards_amount)
+        }
+
+
+def write_cards_content(
+    transcription_path: str, bundle_size: int
+) -> dict[str, dict[str, str]]:
     """Generate the content of a card based on a transcription.
 
     Args:
@@ -32,12 +38,16 @@ def write_cards_content(transcription_path: str) -> str:
     Returns:
         str: The generated content, formated by the schema.
     """
+
+    bundle = CardsBundle(bundle_size)
+    schema = schema_builder.to_json_schema(bundle.schema())
+
     with open(transcription_path, encoding="utf-8") as file:
         response = chat(
             model=MODEL,
             format=schema,
             messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": TOTAL_PROMPT},
                 {
                     "role": "user",
                     "content": f"Here is the information about the topic: <information> {''.join(file.readlines())} </information>",
